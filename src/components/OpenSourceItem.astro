@@ -1,0 +1,119 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+  name: string;
+  description: string;
+  tags?: string[];
+  sourceUrl?: string;
+}
+
+const { name, description, tags = [], sourceUrl } = Astro.props;
+---
+
+<article class="repo-item">
+  <div class="repo-main">
+    <h3 class="repo-name">
+      {sourceUrl ? (
+        <ExternalLink href={sourceUrl} class="repo-link link-underline">{name}</ExternalLink>
+      ) : (
+        <span>{name}</span>
+      )}
+    </h3>
+    <p class="repo-description">{description}</p>
+  </div>
+  <div class="repo-meta">
+    {tags.length > 0 && <span class="repo-language">{tags.join(" · ")}</span>}
+    {sourceUrl && (
+      <ExternalLink href={sourceUrl} class="repo-source-link">
+        <span class="repo-source-label">Source</span>
+      </ExternalLink>
+    )}
+  </div>
+</article>
+
+<style>
+  .repo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .repo-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .repo-name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .repo-link {
+    --underline-offset: -1px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: color var(--duration) var(--ease);
+  }
+
+  .repo-description {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 60ch;
+  }
+
+  .repo-meta {
+    display: flex;
+    align-items: center;
+    gap: 0 1rem;
+    flex-wrap: wrap;
+  }
+
+  .repo-language {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  .repo-source-link {
+    font-size: 0.8125rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color var(--duration) var(--ease);
+  }
+
+  .repo-source-label {
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .repo-item {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .repo-main {
+      flex: 1;
+    }
+
+    .repo-meta {
+      flex-shrink: 0;
+      gap: 0 1.25rem;
+    }
+  }
+
+  @media (hover: hover) {
+    .repo-link:hover {
+      color: var(--accent-text);
+    }
+
+    .repo-source-link:hover {
+      color: var(--accent-text);
+    }
+  }
+</style>

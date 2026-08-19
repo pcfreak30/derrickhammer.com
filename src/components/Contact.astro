@@ -1,0 +1,105 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+
+interface SocialLink {
+  label: string;
+  href: string;
+}
+
+const socialLinks: SocialLink[] = [
+  { label: "GitHub", href: "https://github.com/pcfreak30" },
+  { label: "X / Twitter", href: "https://x.com/pcfreak30" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/derrickhammer" },
+];
+---
+
+<div class="contact-inner">
+  <p class="contact-eyebrow eyebrow">Available for engineering work</p>
+  <h2 class="contact-heading">Stuck on a hard technical problem?</h2>
+  <p class="contact-text">
+    If something is stuck and you need senior help figuring out what is
+    actually wrong, I'm available for focused engineering work across backend
+    systems, infrastructure, integrations, storage, and complex web
+    applications.
+  </p>
+  <ExternalLink href="mailto:solution@derrickhammer.com" class="contact-email"
+    >solution@derrickhammer.com</ExternalLink
+  >
+
+  <ul class="contact-social">
+    {socialLinks.map((link) => (
+      <li>
+        <ExternalLink href={link.href} class="contact-social-link link-underline">{link.label}</ExternalLink>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .contact-inner {
+    text-align: left;
+  }
+
+  .contact-eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  .contact-heading {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+
+  .contact-text {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+  }
+
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target);
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--accent-text);
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--accent-text);
+    transition: color var(--duration) var(--ease),
+      border-color var(--duration) var(--ease);
+  }
+
+  .contact-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-social-link {
+    --underline-offset: -2px;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target);
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color var(--duration) var(--ease);
+  }
+
+  @media (hover: hover) {
+    .contact-email:hover {
+      color: var(--accent-text-hover);
+      border-color: var(--accent-text-hover);
+    }
+
+    .contact-social-link:hover {
+      color: var(--text-primary);
+    }
+  }
+</style>

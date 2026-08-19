@@ -1,0 +1,104 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+---
+
+<div class="about-inner">
+  <div class="about-text">
+    <p class="about-paragraph">
+      I've spent more than 15 years building and debugging software across web
+      applications, backend systems, infrastructure, hosting, performance, and
+      integrations. I started in PHP and WordPress, then gradually moved into
+      backend systems, storage, infrastructure, Go, and TypeScript.
+    </p>
+    <p class="about-paragraph">
+      Today I'm mostly focused on backend systems, infrastructure, storage,
+      developer tooling, and complex web applications. I tend to be most useful
+      when a problem doesn't fit neatly in one box and someone needs to follow
+      it wherever it leads.
+    </p>
+  </div>
+
+  <aside class="about-meta">
+    <dl class="about-meta-list">
+      <div class="about-meta-item">
+        <dt class="meta-label">Experience</dt>
+        <dd class="meta-value">15+ years</dd>
+      </div>
+      <div class="about-meta-item">
+        <dt class="meta-label">Domains</dt>
+        <dd class="meta-value">Backend, Infrastructure, Storage, Web Systems</dd>
+      </div>
+      <div class="about-meta-item">
+        <dt class="meta-label">Languages</dt>
+        <dd class="meta-value">Go, TypeScript, PHP</dd>
+      </div>
+      <div class="about-meta-item">
+        <dt class="meta-label">Elsewhere</dt>
+        <dd class="meta-value">
+          <ExternalLink href="https://github.com/pcfreak30">GitHub</ExternalLink>
+        </dd>
+      </div>
+    </dl>
+  </aside>
+</div>
+
+<style>
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .about-text {
+    max-width: 44rem;
+  }
+
+  .about-paragraph {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .about-paragraph + .about-paragraph {
+    margin-top: 1.25rem;
+  }
+
+  .about-meta {
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+  }
+
+  .about-meta .meta-label {
+    color: var(--text-secondary);
+  }
+
+  .about-meta-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2.5rem;
+  }
+
+  .about-meta-item {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .about-inner {
+      grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.5fr);
+      gap: clamp(3rem, 7vw, 6rem);
+    }
+
+    .about-meta {
+      border-top: none;
+      border-left: 1px solid var(--border);
+      padding-top: 0;
+      padding-left: 2.5rem;
+    }
+
+    .about-meta-list {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  }
+</style>
