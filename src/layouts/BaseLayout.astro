@@ -1,0 +1,335 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Derrick Hammer · Senior Product & Systems Engineer",
+  description =
+    "Senior product and systems engineer. Work across backend systems, infrastructure, storage, and complex web applications.",
+} = Astro.props;
+
+const siteURL = Astro.site ?? new URL("https://derrickhammer.com");
+const canonicalURL = new URL(Astro.url.pathname, siteURL).href;
+const imageURL = new URL("/images/og-cover.png", siteURL).href;
+const namePlaceholder = "Derrick Hammer";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#f9f8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171715" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${namePlaceholder} personal site`} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={namePlaceholder} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:image:alt" content={`${namePlaceholder} personal site`} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": siteURL.origin + "/#person",
+          name: namePlaceholder,
+          url: siteURL.origin,
+          description:
+            "Senior product and systems engineer. Work across backend systems, infrastructure, storage, and complex web applications.",
+          jobTitle: "Senior Product & Systems Engineer",
+          sameAs: [
+            "https://github.com/pcfreak30",
+            "https://www.linkedin.com/in/derrickhammer",
+            "https://x.com/pcfreak30",
+          ],
+        },
+        {
+          "@type": "WebSite",
+          "@id": siteURL.origin + "/#website",
+          url: siteURL.origin,
+          name: namePlaceholder,
+          publisher: {
+            "@type": "Person",
+            "@id": siteURL.origin + "/#person",
+          },
+        },
+        {
+          "@type": "WebPage",
+          "@id": canonicalURL + "#webpage",
+          url: canonicalURL,
+          name: title,
+          description: description,
+          isPartOf: {
+            "@type": "WebSite",
+            "@id": siteURL.origin + "/#website",
+          },
+        },
+      ],
+    })} />
+
+    <script is:inline>
+      // Prevent theme flash — set data-theme before paint.
+      // Also add .js class for progressive enhancement.
+      (function () {
+        // Single source of truth for browser chrome / theme-color background.
+        window.__THEME_BG__ = { light: "#f9f8f5", dark: "#171715" };
+        document.documentElement.classList.add("js");
+        var resolved = null;
+        try {
+          var stored = localStorage.getItem("theme");
+          if (stored === "light" || stored === "dark") {
+            document.documentElement.setAttribute("data-theme", stored);
+            resolved = stored;
+          }
+        } catch (e) {
+          /* localStorage unavailable; use system preference */
+        }
+        if (resolved === null) {
+          resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        // Sync browser chrome color before paint (mirrors applyThemeColor)
+        var themeColor = window.__THEME_BG__[resolved];
+        document
+          .querySelectorAll("meta[name='theme-color']")
+          .forEach(function (meta) {
+            meta.setAttribute("content", themeColor);
+          });
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script is:inline>
+      (function () {
+        // --- Header scroll state ---
+        var header = document.querySelector("[data-header]");
+        var ticking = false;
+        var updateHeader = function () {
+          if (window.scrollY > 8) {
+            header.setAttribute("data-scrolled", "");
+          } else {
+            header.removeAttribute("data-scrolled");
+          }
+          ticking = false;
+        };
+        window.addEventListener("scroll", function () {
+          if (!ticking) {
+            window.requestAnimationFrame(updateHeader);
+            ticking = true;
+          }
+        }, { passive: true });
+        updateHeader();
+
+        // --- Mobile nav ---
+        var menuToggle = document.querySelector("[data-menu-toggle]");
+        var mobileNav = document.querySelector("[data-mobile-nav]");
+
+        var openMobileNav = function () {
+          menuToggle.setAttribute("aria-expanded", "true");
+          mobileNav.removeAttribute("data-closed");
+          mobileNav.setAttribute("data-open", "");
+          var firstLink = mobileNav.querySelector("a");
+          if (firstLink) {
+            firstLink.focus();
+          }
+        };
+
+        var closeMobileNav = function () {
+          menuToggle.setAttribute("aria-expanded", "false");
+          mobileNav.removeAttribute("data-open");
+          mobileNav.setAttribute("data-closed", "");
+        };
+
+        // Start with menu closed (hidden from AT)
+        mobileNav.setAttribute("data-closed", "");
+
+        menuToggle.addEventListener("click", function () {
+          var expanded = menuToggle.getAttribute("aria-expanded") === "true";
+          if (expanded) {
+            closeMobileNav();
+            menuToggle.focus();
+          } else {
+            openMobileNav();
+          }
+        });
+
+        // Close on nav link click
+        document
+          .querySelectorAll("[data-nav-close]")
+          .forEach(function (el) {
+            el.addEventListener("click", closeMobileNav);
+          });
+
+        // Close on Escape
+        document.addEventListener("keydown", function (e) {
+          if (
+            e.key === "Escape" &&
+            menuToggle.getAttribute("aria-expanded") === "true"
+          ) {
+            closeMobileNav();
+            menuToggle.focus();
+          }
+        });
+
+        // Close on outside click
+        document.addEventListener("click", function (e) {
+          if (
+            menuToggle.getAttribute("aria-expanded") === "true" &&
+            !mobileNav.contains(e.target) &&
+            !menuToggle.contains(e.target)
+          ) {
+            closeMobileNav();
+          }
+        });
+
+        // --- Theme toggle ---
+        var themeToggles = document.querySelectorAll("[data-theme-toggle]");
+        var root = document.documentElement;
+        var themeColors = window.__THEME_BG__;
+
+        var currentTheme = function () {
+          var attr = root.getAttribute("data-theme");
+          if (attr === "light" || attr === "dark") {
+            return attr;
+          }
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        };
+
+        var applyThemeColor = function (theme) {
+          document
+            .querySelectorAll("meta[name='theme-color']")
+            .forEach(function (meta) {
+              meta.setAttribute(
+                "content",
+                theme === "dark" ? themeColors.dark : themeColors.light,
+              );
+            });
+        };
+
+        var updateThemeToggles = function () {
+          var theme = currentTheme();
+          applyThemeColor(theme);
+          themeToggles.forEach(function (toggle) {
+            var label = toggle.querySelector("[data-theme-label]");
+            if (label) {
+              label.textContent = theme === "dark" ? "Light" : "Dark";
+            }
+            toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+            toggle.setAttribute(
+              "aria-label",
+              theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
+            );
+          });
+        };
+        updateThemeToggles();
+
+        themeToggles.forEach(function (toggle) {
+          toggle.addEventListener("click", function () {
+            var next = currentTheme() === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", next);
+            try {
+              localStorage.setItem("theme", next);
+            } catch (e) {
+              /* localStorage unavailable */
+            }
+            updateThemeToggles();
+          });
+        });
+
+        // Update when system preference changes
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", updateThemeToggles);
+
+        // --- IntersectionObserver reveal ---
+        var prefersReduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        if (!prefersReduce && "IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: "0px 0px -50px 0px", threshold: 0.1 },
+          );
+
+          document
+            .querySelectorAll(".reveal")
+            .forEach(function (el) {
+              observer.observe(el);
+            });
+        } else {
+          document
+            .querySelectorAll(".reveal")
+            .forEach(function (el) {
+              el.classList.add("is-visible");
+            });
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+    padding: 0.625rem 1rem;
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+</style>

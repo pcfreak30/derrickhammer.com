@@ -1,0 +1,354 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const navLinks: NavLink[] = [
+  { label: "Work", href: "#work" },
+  { label: "Capabilities", href: "#capabilities" },
+  { label: "Open Source", href: "#open-source" },
+  { label: "About", href: "#about" },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a href="/" class="wordmark">
+      <span class="wordmark-text">Derrick Hammer</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <ul class="nav-list">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link link-underline">{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button
+        class="theme-toggle"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Toggle color theme"
+      >
+        <svg
+          class="icon-moon"
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg
+          class="icon-sun"
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+      </button>
+      <ExternalLink href="mailto:solution@derrickhammer.com" class="contact-cta"
+        >Discuss a problem</ExternalLink
+      >
+      <button
+        class="menu-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" id="mobile-nav" data-mobile-nav aria-label="Primary">
+    <ul class="nav-mobile-list">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="nav-mobile-link" data-nav-close>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration) var(--ease),
+      background-color var(--duration) var(--ease);
+  }
+
+  @supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+    .site-header {
+      background-color: var(--bg-header);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+
+  .site-header[data-scrolled] {
+    border-bottom-color: var(--border);
+    background-color: var(--bg-header-scrolled);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+  }
+
+  .wordmark {
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.0625rem);
+    font-weight: 650;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    --underline-offset: -4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--duration) var(--ease);
+    min-height: var(--touch-target);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--touch-target);
+    height: var(--touch-target);
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color var(--duration) var(--ease);
+  }
+
+  .theme-toggle .icon-sun {
+    display: none;
+  }
+
+  html[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+  }
+
+  html[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  /* Without JS the theme toggle is inert — hide it */
+  html:not(.js) .theme-toggle {
+    display: none;
+  }
+
+  .contact-cta {
+    display: none;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.625rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    min-height: var(--touch-target);
+    transition: color var(--duration) var(--ease),
+      border-color var(--duration) var(--ease),
+      background-color var(--duration) var(--ease);
+  }
+
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--touch-target);
+    height: var(--touch-target);
+    padding: 0;
+  }
+
+  .menu-icon,
+  .menu-icon::before,
+  .menu-icon::after {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background-color: var(--text-primary);
+    transition: transform var(--duration) var(--ease),
+      opacity var(--duration) var(--ease);
+  }
+
+  .menu-icon {
+    position: relative;
+  }
+
+  .menu-icon::before,
+  .menu-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-icon::before {
+    top: -6px;
+  }
+
+  .menu-icon::after {
+    top: 6px;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon {
+    background-color: transparent;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .nav-mobile {
+    display: block;
+    border-bottom: 1px solid transparent;
+    background-color: var(--bg);
+    visibility: visible;
+  }
+
+  /* With JS: collapsed by default, animated open/close */
+  html.js .nav-mobile {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s var(--ease),
+      border-color var(--duration) var(--ease),
+      visibility 0s linear 0.3s;
+  }
+
+  html.js .nav-mobile[data-closed] {
+    visibility: hidden;
+  }
+
+  html.js .nav-mobile[data-open] {
+    max-height: 320px;
+    border-bottom-color: var(--border);
+    visibility: visible;
+    transition: max-height 0.3s var(--ease),
+      border-color var(--duration) var(--ease),
+      visibility 0s;
+  }
+
+  /* Without JS: menu cannot be opened, so keep nav visible and hide toggle */
+  html:not(.js) .nav-mobile {
+    max-height: none;
+    overflow: visible;
+  }
+
+  html:not(.js) .menu-toggle {
+    display: none;
+  }
+
+  .nav-mobile-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem var(--pad-x) 1rem;
+  }
+
+  .nav-mobile-link {
+    display: flex;
+    align-items: center;
+    min-height: var(--touch-target);
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color var(--duration) var(--ease);
+  }
+
+  @media (min-width: 768px) {
+    .nav-desktop {
+      display: block;
+    }
+
+    .contact-cta {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .nav-mobile {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) {
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+    }
+
+    .contact-cta:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+      background-color: var(--bg-elevated);
+    }
+
+    .nav-mobile-link:hover {
+      color: var(--text-primary);
+    }
+  }
+</style>
