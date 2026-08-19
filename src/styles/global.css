@@ -1,0 +1,296 @@
+/* =========================================================================
+   Design System — DerrickHammer.com
+   ========================================================================= */
+
+/* --- Color Tokens --- */
+:root {
+  /* Light mode (default) */
+  --bg: #f9f8f5;
+  --bg-elevated: #ffffff;
+  --text-primary: #1a1a19;
+  --text-secondary: #55554f;
+  --text-tertiary: #5a5a53;
+  --border: #e5e2db;
+  --border-strong: #d2cfc7;
+  --accent: #98331f;
+  --accent-hover: #7e2917;
+  --accent-text: #98331f;
+  --accent-text-hover: #7e2917;
+  --bg-header: rgba(249, 248, 245, 0.78);
+  --bg-header-scrolled: rgba(249, 248, 245, 0.93);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", Menlo,
+    Consolas, monospace;
+
+  /* Layout */
+  --max-width: 1240px;
+  --max-width-prose: 760px;
+  --pad-x-desktop: clamp(2.5rem, 5vw, 4rem);
+  --pad-x-tablet: clamp(1.75rem, 4vw, 2.5rem);
+  --pad-x-mobile: clamp(1.125rem, 3vw, 1.5rem);
+  --pad-x: var(--pad-x-mobile);
+
+  /* Section spacing */
+  --section-gap-desktop: clamp(2.5rem, 6vh, 3.5rem);
+  --section-gap-mobile: clamp(2rem, 4.5vh, 2.5rem);
+  --section-gap: var(--section-gap-mobile);
+
+  /* Header */
+  --header-height: 68px;
+
+  /* Radius */
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  /* Interaction */
+  --touch-target: 44px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 0.2s;
+
+  /* Shadows */
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pad-x: var(--pad-x-tablet);
+    --section-gap: var(--section-gap-desktop);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --pad-x: var(--pad-x-desktop);
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171715;
+    --bg-elevated: #201f1c;
+    --text-primary: #efede8;
+    --text-secondary: #b4b1aa;
+    --text-tertiary: #8c8982;
+    --border: #302f2b;
+    --border-strong: #45433e;
+    --accent: #b8472e;
+    --accent-hover: #c04e33;
+    --accent-text: #e07354;
+    --accent-text-hover: #f0987d;
+    --bg-header: rgba(23, 23, 21, 0.75);
+    --bg-header-scrolled: rgba(23, 23, 21, 0.92);
+    --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Manual theme override via data attribute */
+html[data-theme="light"] {
+  --bg: #f9f8f5;
+  --bg-elevated: #ffffff;
+  --text-primary: #1a1a19;
+  --text-secondary: #55554f;
+  --text-tertiary: #5a5a53;
+  --border: #e5e2db;
+  --border-strong: #d2cfc7;
+  --accent: #98331f;
+  --accent-hover: #7e2917;
+  --accent-text: #98331f;
+  --accent-text-hover: #7e2917;
+  --bg-header: rgba(249, 248, 245, 0.78);
+  --bg-header-scrolled: rgba(249, 248, 245, 0.93);
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="dark"] {
+  --bg: #171715;
+  --bg-elevated: #201f1c;
+  --text-primary: #efede8;
+  --text-secondary: #b4b1aa;
+  --text-tertiary: #8c8982;
+  --border: #302f2b;
+  --border-strong: #45433e;
+  --accent: #b8472e;
+  --accent-hover: #c04e33;
+  --accent-text: #e07354;
+  --accent-text-hover: #f0987d;
+  --bg-header: rgba(23, 23, 21, 0.75);
+  --bg-header-scrolled: rgba(23, 23, 21, 0.92);
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 0.25vw + 1rem, 1.1875rem);
+  line-height: 1.65;
+  color: var(--text-primary);
+  background-color: var(--bg);
+  min-height: 100dvh;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--accent-text);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* --- Focus states --- */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Motion preferences --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Utility classes --- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+
+.container-prose {
+  width: 100%;
+  max-width: var(--max-width-prose);
+  margin-inline: auto;
+  padding-inline: var(--pad-x);
+}
+
+/* --- Reveal animation (IntersectionObserver-driven) ---
+   Progressive enhancement: content is visible by default.
+   Only hidden when JS adds the .js class to <html>. */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Typography helpers --- */
+.mono {
+  font-family: var(--font-mono);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Key/value metadata label + value (Hero rail, About facts) */
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.meta-value {
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+}
+
+/* Link underline that draws in on hover */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: var(--underline-offset, -2px);
+  width: 0;
+  height: 1px;
+  background-color: var(--accent-text);
+  transition: width var(--duration) var(--ease);
+}
+
+@media (hover: hover) {
+  .link-underline:hover::after {
+    width: 100%;
+  }
+}
+
+/* Anchor offset for sticky header */
+:where(section[id]) {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
