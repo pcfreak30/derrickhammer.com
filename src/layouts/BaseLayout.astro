@@ -116,6 +116,9 @@ const namePlaceholder = "Derrick Hammer";
             ? "dark"
             : "light";
         }
+        // Always set the attribute, including for system-derived themes, so
+        // attribute-based selectors (e.g. theme-toggle icons) stay correct.
+        document.documentElement.setAttribute("data-theme", resolved);
         // Sync browser chrome color before paint (mirrors applyThemeColor)
         var themeColor = window.__THEME_BG__[resolved];
         document
