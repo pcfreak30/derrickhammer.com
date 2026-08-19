@@ -16,7 +16,7 @@ const {
 
 const siteURL = Astro.site ?? new URL("https://derrickhammer.com");
 const canonicalURL = new URL(Astro.url.pathname, siteURL).href;
-const imageURL = new URL("/images/og-cover.png", siteURL).href;
+const imageURL = new URL("/images/og/default.png", siteURL).href;
 const namePlaceholder = "Derrick Hammer";
 ---
 
