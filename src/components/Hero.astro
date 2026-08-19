@@ -1,0 +1,211 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+
+interface MetaItem {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+const metaItems: MetaItem[] = [
+  {
+    label: "Focus",
+    value: "Backend, infrastructure, storage, and complex web systems",
+  },
+  {
+    label: "Available for",
+    value: "Senior engineering help on hard technical problems",
+  },
+  { label: "GitHub", value: "pcfreak30", href: "https://github.com/pcfreak30" },
+];
+---
+
+<section class="hero" id="top">
+  <div class="container hero-inner">
+    <div class="hero-main">
+      <p class="eyebrow hero-eyebrow">Senior Product &amp; Systems Engineer</p>
+      <h1 class="hero-name">Derrick Hammer</h1>
+      <p class="hero-positioning">
+        I help teams solve difficult technical problems when the path forward
+        isn't obvious.
+      </p>
+      <p class="hero-intro">
+        I take ownership of hard backend, infrastructure, storage,
+        integration, and web-system problems, from figuring out what's
+        actually wrong to getting a sane solution into production.
+      </p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">View my work</a>
+        <ExternalLink href="mailto:solution@derrickhammer.com" class="btn btn-secondary"
+          >Discuss a problem</ExternalLink
+        >
+      </div>
+    </div>
+
+    <aside class="hero-meta">
+      <dl class="meta-list">
+        {metaItems.map((item) => (
+          <div class="meta-item">
+            <dt class="meta-label">{item.label}</dt>
+            <dd class="meta-value">
+              {item.href ? (
+                <ExternalLink href={item.href}>{item.value}</ExternalLink>
+              ) : (
+                item.value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(6rem, 11vh, 8.75rem);
+    padding-bottom: clamp(3.5rem, 6vh, 4.5rem);
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 6vh, 4rem);
+  }
+
+  .hero-main {
+    max-width: 640px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+    overflow-wrap: break-word;
+  }
+
+  .hero-positioning {
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.35;
+    font-weight: 500;
+    max-width: 44rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-intro {
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+  }
+
+  .hero-meta {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .meta-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+  }
+
+  .meta-item {
+    margin: 0;
+  }
+
+  .meta-value {
+    margin: 0;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-sm);
+    min-height: var(--touch-target);
+    transition: background-color var(--duration) var(--ease),
+      border-color var(--duration) var(--ease),
+      color var(--duration) var(--ease);
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-secondary {
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    background-color: transparent;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 3rem;
+    }
+
+    .hero-meta {
+      border-top: none;
+      border-left: 1px solid var(--border);
+      padding-top: 0;
+      padding-left: 2.5rem;
+      flex-shrink: 0;
+      max-width: 260px;
+      align-self: stretch;
+      padding-bottom: 0.5rem;
+    }
+
+    .meta-list {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  }
+
+  @media (hover: hover) {
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-secondary);
+      background-color: var(--bg-elevated);
+    }
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: translateY(1px);
+  }
+</style>

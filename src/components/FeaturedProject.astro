@@ -1,0 +1,185 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+  name: string;
+  description: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  technologies?: string[];
+  liveUrl?: string;
+  sourceUrl?: string;
+  reverse?: boolean;
+}
+
+const {
+  name,
+  description,
+  imageSrc,
+  imageAlt = "",
+  technologies = [],
+  liveUrl,
+  sourceUrl,
+  reverse = false,
+} = Astro.props;
+
+const hasVisual = Boolean(imageSrc);
+---
+
+<article
+  class:list={[
+    "project",
+    { "project--reverse": reverse },
+    { "project--text-only": !hasVisual },
+  ]}
+>
+  {hasVisual && (
+    <div class="project-visual">
+      <img src={imageSrc} alt={imageAlt} loading="lazy" width="1513" height="851" />
+    </div>
+  )}
+
+  <div class="project-content">
+    <h3 class="project-name">{name}</h3>
+    <p class="project-description">{description}</p>
+
+    {technologies.length > 0 && (
+      <p class="project-meta">{technologies.join(" · ")}</p>
+    )}
+
+    <div class="project-links">
+      {liveUrl && (
+        <ExternalLink href={liveUrl} class="project-link link-underline">
+          <span class="project-link-label">Live</span>
+          <span class="project-link-arrow" aria-hidden="true">↗</span>
+        </ExternalLink>
+      )}
+      {sourceUrl && (
+        <ExternalLink href={sourceUrl} class="project-link link-underline">
+          <span class="project-link-label">Source</span>
+          <span class="project-link-arrow" aria-hidden="true">↗</span>
+        </ExternalLink>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .project-visual {
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-color: var(--bg-elevated);
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+
+  .project-visual img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .project-content {
+    max-width: 34rem;
+  }
+
+  .project--text-only .project-content {
+    max-width: 44rem;
+  }
+
+  .project-name {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-description {
+    font-size: clamp(1.0625rem, 0.25vw + 1rem, 1.1875rem);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .project-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    margin-bottom: 1.5rem;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    align-items: center;
+  }
+
+  .project-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: color var(--duration) var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: var(--touch-target);
+  }
+
+  .project-link-arrow {
+    font-size: 0.875rem;
+    transition: transform var(--duration) var(--ease);
+  }
+
+  @media (min-width: 900px) {
+    .project {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .project--reverse .project-visual {
+      order: 2;
+    }
+
+    .project--reverse .project-content {
+      order: 1;
+    }
+
+    .project--text-only {
+      display: block;
+    }
+
+    .project--text-only .project-content {
+      max-width: 46rem;
+    }
+  }
+
+  @media (hover: hover) {
+    .project-visual:hover {
+      box-shadow: var(--shadow-lift);
+      transform: translateY(-2px);
+    }
+
+    .project-link:hover {
+      color: var(--accent-text);
+    }
+
+    .project-link:hover .project-link-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+</style>
