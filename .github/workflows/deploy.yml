@@ -1,0 +1,27 @@
+name: Deploy to Pinner
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Deploy to Pinner
+        uses: lumeweb/pinner-deploy-action@v0
+        with:
+          api-key: ${{ secrets.PINNER_AUTH_TOKEN }}
+          path: ./dist
+          domain: derrickhammer.com
