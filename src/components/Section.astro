@@ -1,0 +1,21 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  prose?: boolean;
+}
+
+const { id, class: className, prose = false } = Astro.props;
+---
+
+<section id={id} class:list={["section", className]}>
+  <div class={prose ? "container-prose" : "container"}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--section-gap);
+  }
+</style>
