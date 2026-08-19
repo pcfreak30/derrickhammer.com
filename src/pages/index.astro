@@ -1,0 +1,171 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import CapabilityList from "../components/CapabilityList.astro";
+import TechStack from "../components/TechStack.astro";
+import OpenSourceItem from "../components/OpenSourceItem.astro";
+import About from "../components/About.astro";
+import Contact from "../components/Contact.astro";
+
+const capabilities = [
+  {
+    title: "Hard Problems & Debugging",
+    description:
+      "Tracking down failures when the cause isn't clear, the problem crosses multiple parts of a system, or the straightforward fix didn't solve it.",
+  },
+  {
+    title: "Backend & Infrastructure",
+    description:
+      "Building and debugging backend services, APIs, workers, storage, deployment, networking, and what keeps them running.",
+  },
+  {
+    title: "Integrations",
+    description:
+      "Connecting APIs, services, authentication, automation, and data flows when the pieces do not fit together cleanly.",
+  },
+  {
+    title: "Complex Web Systems",
+    description:
+      "Working across application code, servers, performance, hosting, and infrastructure when the problem spans more than one part of the system.",
+  },
+];
+
+const currentTools = ["Go", "TypeScript", "Linux", "Docker", "Virtualization", "IPFS"];
+const backgroundTools = ["PHP", "WordPress"];
+
+const repos = [
+  {
+    name: "LumeWeb Portal",
+    description:
+      "A modular Go backend framework with pluggable protocols, workflow orchestration, APIs, authentication, observability, and storage services.",
+    tags: ["Go", "Backend", "Infrastructure", "Storage"],
+    sourceUrl: "https://github.com/LumeWeb/portal",
+  },
+  {
+    name: "LumeWeb Web Platform",
+    description:
+      "A TypeScript and React framework for modular web apps, shared tooling, plugins, SDKs, and independently deployed frontend features.",
+    tags: ["TypeScript", "React", "Frontend", "Platform"],
+    sourceUrl: "https://github.com/LumeWeb/web",
+  },
+  {
+    name: "Rocket Footer JS",
+    description:
+      "Historical WordPress performance tooling for script optimization, lazy loading, caching, and compatibility across plugins, themes, and third-party services.",
+    tags: ["PHP", "WordPress", "Web Performance", "Historical"],
+    sourceUrl: "https://github.com/pcfreak30/rocket-footer-js",
+  },
+];
+---
+
+<BaseLayout title="Derrick Hammer · Senior Product & Systems Engineer" description="Senior product and systems engineer. Work across backend systems, infrastructure, storage, and complex web applications.">
+  <Hero />
+
+  <Section id="work">
+    <div class="reveal">
+      <SectionHeading heading="Selected work" />
+    </div>
+
+    <div class="reveal project-row">
+      <FeaturedProject
+        name="Pinner"
+        description="I built and operate Pinner, an IPFS storage and static hosting service. The work spans backend services, the web product, developer tooling, deployment infrastructure, and the systems behind storing and serving data."
+        imageSrc="/images/pinner.png"
+        imageAlt="Pinner dashboard screenshot"
+        technologies={["Go", "TypeScript", "IPFS"]}
+        liveUrl="https://pinner.xyz/?utm_source=derrickhammer.com&utm_medium=website&utm_campaign=featured_work"
+        sourceUrl="https://github.com/LumeWeb"
+      />
+    </div>
+
+  </Section>
+
+  <Section id="capabilities">
+    <div class="reveal">
+      <SectionHeading eyebrow="Capabilities" heading="What I work on" />
+    </div>
+    <div class="reveal">
+      <CapabilityList items={capabilities} />
+    </div>
+    <div class="reveal">
+      <TechStack current={currentTools} background={backgroundTools} />
+    </div>
+  </Section>
+
+  <Section id="open-source">
+    <div class="reveal">
+      <SectionHeading eyebrow="Open Source" heading="Public code" />
+    </div>
+
+    <div class="reveal">
+      {repos.map((repo) => (
+        <OpenSourceItem
+          name={repo.name}
+          description={repo.description}
+          tags={repo.tags}
+          sourceUrl={repo.sourceUrl}
+        />
+      ))}
+      <a
+        class="repo-more link-underline"
+        href="https://github.com/pcfreak30"
+        target="_blank"
+        rel="noopener noreferrer"
+        >More on GitHub <span class="more-arrow" aria-hidden="true">↗</span></a
+      >
+    </div>
+  </Section>
+
+  <Section id="about" prose={false}>
+    <div class="reveal">
+      <SectionHeading eyebrow="About" heading="I've worked across a lot of the stack" />
+    </div>
+    <div class="reveal">
+      <About />
+    </div>
+  </Section>
+
+  <Section id="contact">
+    <div class="reveal">
+      <Contact />
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .project-row + .project-row {
+    margin-top: clamp(4rem, 7vh, 6rem);
+  }
+
+  .repo-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
+    min-height: var(--touch-target);
+    --underline-offset: -2px;
+    transition: color var(--duration) var(--ease);
+  }
+
+  .repo-more .more-arrow {
+    font-size: 0.8125rem;
+    transition: transform var(--duration) var(--ease);
+  }
+
+  @media (hover: hover) {
+    .repo-more:hover {
+      color: var(--accent-text);
+    }
+
+    .repo-more:hover .more-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+</style>
