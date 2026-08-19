@@ -1,0 +1,80 @@
+---
+interface Props {
+  current: string[];
+  background: string[];
+}
+
+const { current, background } = Astro.props;
+---
+
+<div class="tech-stack">
+  <p class="tech-label">Tools &amp; Technologies</p>
+  <dl class="tech-rows">
+    <div class="tech-row">
+      <dt class="tech-row-label">Current</dt>
+      <dd class="tech-row-value">{current.join(" · ")}</dd>
+    </div>
+    <div class="tech-row">
+      <dt class="tech-row-label">Background</dt>
+      <dd class="tech-row-value">{background.join(" · ")}</dd>
+    </div>
+  </dl>
+</div>
+
+<style>
+  .tech-stack {
+    margin-top: clamp(2.5rem, 5vh, 3.5rem);
+  }
+
+  .tech-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .tech-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    margin: 0;
+  }
+
+  .tech-row {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    margin: 0;
+  }
+
+  .tech-row-label {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    margin: 0;
+    flex-shrink: 0;
+    width: 6.5rem;
+  }
+
+  .tech-row-value {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .tech-row {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .tech-row-value {
+      padding-top: 0.125rem;
+    }
+  }
+</style>
