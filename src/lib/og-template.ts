@@ -13,11 +13,11 @@ const COLORS = {
 };
 
 // Resolve font files. During the Astro build `process.cwd()` is the project root,
-// which is where node_modules lives, so a single relative fallback is enough.
+// which is where node_modules lives, so a single parent fallback is enough.
 function findAsset(relativePath: string): string {
   const fromCwd = resolve(process.cwd(), relativePath);
   if (existsSync(fromCwd)) return fromCwd;
-  return resolve(process.cwd(), "node_modules", relativePath);
+  return resolve(process.cwd(), "../", relativePath);
 }
 
 const FONT_DIR = findAsset("node_modules/@fontsource/roboto/files");
