@@ -4,7 +4,7 @@ import { generateOGImage } from "../../../lib/og-template";
 const NAME = "Derrick Hammer";
 const TITLE = "Senior Product & Systems Engineer";
 const DESCRIPTION =
-  "Backend, infrastructure, storage, and complex web systems. Senior engineering help on hard technical problems.";
+  "Backend, infrastructure, storage, agentic systems, and complex web systems. Senior engineering help on hard technical problems.";
 const SOCIALS = ["@pcfreak30", "in/derrickhammer"];
 
 export const GET: APIRoute = async () => {

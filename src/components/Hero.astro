@@ -10,7 +10,7 @@ interface MetaItem {
 const metaItems: MetaItem[] = [
   {
     label: "Focus",
-    value: "Backend, infrastructure, storage, and complex web systems",
+    value: "Backend, infrastructure, storage, agentic systems, and complex web systems",
   },
   {
     label: "Available for",
@@ -33,6 +33,10 @@ const metaItems: MetaItem[] = [
         I take ownership of hard backend, infrastructure, storage,
         integration, and web-system problems, from figuring out what's
         actually wrong to getting a sane solution into production.
+      </p>
+      <p class="hero-escalation">
+        I'm most useful when a team is blocked, overloaded, or dealing with a
+        problem that has crossed outside its normal comfort zone.
       </p>
       <div class="hero-ctas">
         <a href="#work" class="btn btn-primary">View my work</a>
@@ -103,6 +107,15 @@ const metaItems: MetaItem[] = [
     font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
     line-height: 1.6;
     color: var(--text-secondary);
+    max-width: 50ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-escalation {
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--text-primary);
     max-width: 50ch;
     margin-bottom: 2rem;
   }
