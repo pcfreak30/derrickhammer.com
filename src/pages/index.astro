@@ -14,26 +14,26 @@ const capabilities = [
   {
     title: "Hard Problems & Debugging",
     description:
-      "Tracking down failures when the cause isn't clear, the problem crosses multiple parts of a system, or the straightforward fix didn't solve it.",
+      "Something important is failing and the obvious fixes haven't worked.",
   },
   {
     title: "Backend & Infrastructure",
     description:
-      "Building and debugging backend services, APIs, workers, storage, deployment, networking, and what keeps them running.",
+      "A service, deployment, storage or infrastructure problem needs someone who can follow it across boundaries.",
   },
   {
     title: "Integrations",
     description:
-      "Connecting APIs, services, authentication, automation, and data flows when the pieces do not fit together cleanly.",
+      "Systems need to talk to each other and the real-world APIs, auth or data flows aren't behaving like the documentation suggests.",
   },
   {
     title: "Complex Web Systems",
     description:
-      "Working across application code, servers, performance, hosting, and infrastructure when the problem spans more than one part of the system.",
+      "Problems where application code, hosting, performance, and infrastructure interact in ways that make the root cause hard to isolate.",
   },
 ];
 
-const currentTools = ["Go", "TypeScript", "Linux", "Docker", "Virtualization", "IPFS"];
+const currentTools = ["Go", "TypeScript", "Linux", "Docker", "Kubernetes", "Virtualization", "IPFS"];
 const backgroundTools = ["PHP", "WordPress"];
 
 const repos = [
@@ -72,7 +72,7 @@ const repos = [
     <div class="reveal project-row">
       <FeaturedProject
         name="Pinner"
-        description="I built and operate Pinner, an IPFS storage and static hosting service. The work spans backend services, the web product, developer tooling, deployment infrastructure, and the systems behind storing and serving data."
+        description="I build and maintain Pinner, an IPFS storage and static hosting service. The work spans backend services, the web product, developer tooling, deployment infrastructure, and the systems behind storing and serving data."
         imageSrc="/images/pinner.png"
         imageAlt="Pinner dashboard screenshot"
         technologies={["Go", "TypeScript", "IPFS"]}
@@ -85,7 +85,7 @@ const repos = [
 
   <Section id="capabilities">
     <div class="reveal">
-      <SectionHeading eyebrow="Capabilities" heading="What I work on" />
+      <SectionHeading eyebrow="Capabilities" heading="Where I'm most useful" />
     </div>
     <div class="reveal">
       <CapabilityList items={capabilities} />
